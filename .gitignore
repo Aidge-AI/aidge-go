@@ -1,0 +1,30 @@
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+.DS_Store
+out
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.iml
+*.class
+*.log
+*.log.*
+*.project
+*.pid
+logs/
+target/
+test-output/
+coding/
+*.swap
+*.swp
+*.DS_Store
+.idea
+

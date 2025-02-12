@@ -32,12 +32,12 @@ func main() {
 	// Your personal data
 	accessKeyName := "your access key name" // e.g. 512345
 	accessKeySecret := "your access key secret"
-	apiName := "api name"     // e.g. ai/text/translation/and/polishment
+	apiName := "api name"     // e.g. /ai/text/translation/and/polishment
 	apiDomain := "api domain" // e.g. api.aidc-ai.com or cn-api.aidc-ai.com
 	data := "{your api request params}"
 
 	// Basic URL (placeholders included)
-	urlTemplate := "https://%s/rest/%s?partner_id=aidge&sign_method=sha256&sign_ver=v2&app_key=%s&timestamp=%s&sign=%s"
+	urlTemplate := "https://%s/rest%s?partner_id=aidge&sign_method=sha256&sign_ver=v2&app_key=%s&timestamp=%s&sign=%s"
 
 	// Timestamp in milliseconds
 	timestamp := fmt.Sprintf("%d", time.Now().UnixNano()/int64(time.Millisecond))
