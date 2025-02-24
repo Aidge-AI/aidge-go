@@ -36,7 +36,8 @@ func main() {
 	fmt.Println(accessKeyName)
 	fmt.Println(accessKeySecret)
 
-	apiDomain := "api.aidc-ai.com" // cn-api.aidc-ai.com for cn region
+	apiDomain := "api.aidc-ai.com" // for api purchased on global site
+	// apiDomain := "cn-api.aidc-ai.com" // 中文站购买的API请使用此域名 (for api purchased on chinese site)
 
 	// Call virtual try on submit
 	apiName := "/ai/virtual/model/generation/batch"
