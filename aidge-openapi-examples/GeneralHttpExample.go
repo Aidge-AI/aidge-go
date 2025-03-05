@@ -32,9 +32,23 @@ func main() {
 	// Your personal data
 	accessKeyName := "your access key name" // e.g. 512345
 	accessKeySecret := "your access key secret"
+
+	/* "api.aidc-ai.com" for api purchased on global site
+    * 中文站购买的API请使用"cn-api.aidc-ai.com" (for api purchased on chinese site)
+    */
+    apiDomain := "your api domain"
+
+    /**
+     * We offer trial quota to help you familiarize and test how to use the Aidge API in your account
+     * To use trial quota, please set useTrialResource to true
+     * If you set useTrialResource to false before you purchase the API
+     * You will receive "Sorry, your calling resources have been exhausted........"
+     * 我们为您的账号提供一定数量的免费试用额度可以试用任何API。请将useTrialResource设置为true用于试用。
+     * 如设置为false，且您未购买该API，将会收到"Sorry, your calling resources have been exhausted........."的错误提示
+     */
+    useTrialResource := false/true
+
 	apiName := "api name"     // e.g. /ai/text/translation/and/polishment
-	apiDomain := "api.aidc-ai.com" // for api purchased on global site
-	// apiDomain := "cn-api.aidc-ai.com" // 中文站购买的API请使用此域名 (for api purchased on chinese site)
 	data := "{your api request params}"
 
 	// Basic URL (placeholders included)
@@ -55,6 +69,9 @@ func main() {
 	headers := map[string]string{
 		"Content-Type": "application/json",
 	}
+	if useTrialResource {
+        headers["x-iop-trial"] = "true"
+    }
 
 	// Do HTTP POST request
 	response, err := makeRequest("POST", finalURL, data, headers)

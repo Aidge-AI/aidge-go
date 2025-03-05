@@ -35,19 +35,31 @@ func main() {
 	fmt.Println(accessKeyName)
 	fmt.Println(accessKeySecret)
 
-	apiDomain := "api.aidc-ai.com" // for api purchased on global site
-	// apiDomain := "cn-api.aidc-ai.com" // 中文站购买的API请使用此域名 (for api purchased on chinese site)
+	/* "api.aidc-ai.com" for api purchased on global site
+    * 中文站购买的API请使用"cn-api.aidc-ai.com" (for api purchased on chinese site)
+    */
+    apiDomain := "your api domain"
+
+    /**
+     * We offer trial quota to help you familiarize and test how to use the Aidge API in your account
+     * To use trial quota, please set useTrialResource to true
+     * If you set useTrialResource to false before you purchase the API
+     * You will receive "Sorry, your calling resources have been exhausted........"
+     * 我们为您的账号提供一定数量的免费试用额度可以试用任何API。请将useTrialResource设置为true用于试用。
+     * 如设置为false，且您未购买该API，将会收到"Sorry, your calling resources have been exhausted........."的错误提示
+     */
+    useTrialResource := false/true
 
 	// Call api
 	apiName := "/ai/text/marco/translator"
 	reqeust := "{\"text\":\"[\\\"Pen for iPad, 13 mins Fast Charging Stylus with Palm Rejection, Tilt Sensitivity, Compatible with 2018-2022 iPad Air 3/4/5, iPad Mini 5/6(Black)\\\"]\",\"sourceLanguage\":\"en\",\"targetLanguage\":\"ko\",\"formatType\":\"text\"}"
-	result, _ := invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, reqeust)
+	result, _ := invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, reqeust, useTrialResource)
 
 	// Final result for the virtual try on
 	fmt.Println(result)
 }
 
-func invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, data string) (string, error) {
+func invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, data string, useTrialResource bool) (string, error) {
 	// Basic URL (placeholders included)
 	urlTemplate := "https://%s/rest%s?partner_id=aidge&sign_method=sha256&sign_ver=v2&app_key=%s&timestamp=%s&sign=%s"
 
@@ -62,11 +74,14 @@ func invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, data string) 
 	// Create the final URL with real values
 	finalURL := fmt.Sprintf(urlTemplate, apiDomain, apiName, accessKeyName, timestamp, sign)
 
-	// Add "x-iop-trial": "true" for trial
 	headers := map[string]string{
 		"Content-Type": "application/json",
-// 		"x-iop-trial": "true",
 	}
+
+    // Add "x-iop-trial": "true" for trial
+	if useTrialResource {
+        headers["x-iop-trial"] = "true"
+    }
 
 	// Do HTTP POST request
 	response, err := makeRequest("POST", finalURL, data, headers)

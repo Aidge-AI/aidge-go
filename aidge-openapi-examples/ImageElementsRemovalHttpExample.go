@@ -35,19 +35,31 @@ func main() {
 	fmt.Println(accessKeyName)
 	fmt.Println(accessKeySecret)
 
-	apiDomain := "api.aidc-ai.com" // for api purchased on global site
-	// apiDomain := "cn-api.aidc-ai.com" // 中文站购买的API请使用此域名 (for api purchased on chinese site)
+	/* "api.aidc-ai.com" for api purchased on global site
+    * 中文站购买的API请使用"cn-api.aidc-ai.com" (for api purchased on chinese site)
+    */
+    apiDomain := "your api domain"
+
+    /**
+     * We offer trial quota to help you familiarize and test how to use the Aidge API in your account
+     * To use trial quota, please set useTrialResource to true
+     * If you set useTrialResource to false before you purchase the API
+     * You will receive "Sorry, your calling resources have been exhausted........"
+     * 我们为您的账号提供一定数量的免费试用额度可以试用任何API。请将useTrialResource设置为true用于试用。
+     * 如设置为false，且您未购买该API，将会收到"Sorry, your calling resources have been exhausted........."的错误提示
+     */
+    useTrialResource := false/true
 
 	// Call api
 	apiName := "/ai/image/removal"
-	reqeust := "{\"image_url\":\"https://ae01.alicdn.com/kf/Sa78257f1d9a34dad8ee494178db12ec8l.jpg\",\"non_object_remove_elements\":\"[1,2,3,4]\",\"object_remove_elements\":\"[1,2,3,4]\",\"mask\":\"474556 160 475356 160 476156 160 476956 160 477756 160 478556 160 479356 160 480156 160 480956 160 481756 160 482556 160 483356 160 484156 160 484956 160 485756 160 486556 160 487356 160 488156 160 488956 160 489756 160 490556 160 491356 160 492156  160\"}"
-	result, _ := invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, reqeust)
+	request := "{\"image_url\":\"https://ae01.alicdn.com/kf/Sa78257f1d9a34dad8ee494178db12ec8l.jpg\",\"non_object_remove_elements\":\"[1,2,3,4]\",\"object_remove_elements\":\"[1,2,3,4]\",\"mask\":\"474556 160 475356 160 476156 160 476956 160 477756 160 478556 160 479356 160 480156 160 480956 160 481756 160 482556 160 483356 160 484156 160 484956 160 485756 160 486556 160 487356 160 488156 160 488956 160 489756 160 490556 160 491356 160 492156  160\"}"
+	result, _ := invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, request, useTrialResource)
 
 	// Final result for the virtual try on
 	fmt.Println(result)
 }
 
-func invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, data string) (string, error) {
+func invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, data string, useTrialResource bool) (string, error) {
 	// Basic URL (placeholders included)
 	urlTemplate := "https://%s/rest%s?partner_id=aidge&sign_method=sha256&sign_ver=v2&app_key=%s&timestamp=%s&sign=%s"
 
@@ -62,11 +74,14 @@ func invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, data string) 
 	// Create the final URL with real values
 	finalURL := fmt.Sprintf(urlTemplate, apiDomain, apiName, accessKeyName, timestamp, sign)
 
-	// Add "x-iop-trial": "true" for trial
 	headers := map[string]string{
-		"Content-Type": "application/json",
-// 		"x-iop-trial": "true",
-	}
+        "Content-Type": "application/json",
+    }
+
+    // Add "x-iop-trial": "true" for trial
+    if useTrialResource {
+        headers["x-iop-trial"] = "true"
+    }
 
 	// Do HTTP POST request
 	response, err := makeRequest("POST", finalURL, data, headers)
