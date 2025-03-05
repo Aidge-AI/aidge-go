@@ -52,8 +52,8 @@ func main() {
 
 	// Call api
 	apiName := "/ai/text/marco/translator"
-	reqeust := "{\"text\":\"[\\\"Pen for iPad, 13 mins Fast Charging Stylus with Palm Rejection, Tilt Sensitivity, Compatible with 2018-2022 iPad Air 3/4/5, iPad Mini 5/6(Black)\\\"]\",\"sourceLanguage\":\"en\",\"targetLanguage\":\"ko\",\"formatType\":\"text\"}"
-	result, _ := invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, reqeust, useTrialResource)
+	request := "{\"text\":\"[\\\"Pen for iPad, 13 mins Fast Charging Stylus with Palm Rejection, Tilt Sensitivity, Compatible with 2018-2022 iPad Air 3/4/5, iPad Mini 5/6(Black)\\\"]\",\"sourceLanguage\":\"en\",\"targetLanguage\":\"ko\",\"formatType\":\"text\"}"
+	result, _ := invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, request, useTrialResource)
 
 	// Final result for the virtual try on
 	fmt.Println(result)

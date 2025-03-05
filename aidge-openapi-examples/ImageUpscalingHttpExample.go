@@ -52,8 +52,8 @@ func main() {
 
 	// Call api
 	apiName := "/ai/super/resolution"
-	reqeust := "{\"imageUrl\":\"https://ae-pic-a1.aliexpress-media.com/kf/Sac81d99346924838bd15689923c5f976E.jpg_960x960q75.jpg\",\"upscaleFactor\":4}"
-	result, _ := invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, reqeust, useTrialResource)
+	request := "{\"imageUrl\":\"https://ae-pic-a1.aliexpress-media.com/kf/Sac81d99346924838bd15689923c5f976E.jpg_960x960q75.jpg\",\"upscaleFactor\":4}"
+	result, _ := invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, request, useTrialResource)
 
 	// Final result for the virtual try on
 	fmt.Println(result)
