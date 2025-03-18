@@ -85,6 +85,8 @@ func invokeApi(accessKeyName, accessKeySecret, apiName, apiDomain, data string, 
 
 	// Do HTTP POST request
 	response, err := makeRequest("POST", finalURL, data, headers)
+	// FAQ:https://app.gitbook.com/o/pBUcuyAewroKoYr3CeVm/s/cXGtrD26wbOKouIXD83g/getting-started/faq
+    // FAQ(中文/Simple Chinese):https://aidge.yuque.com/org-wiki-aidge-bzb63a/brbggt/ny2tgih89utg1aha
 	if err != nil {
 		fmt.Printf("Error making request: %s\n", err)
 		return "", err
