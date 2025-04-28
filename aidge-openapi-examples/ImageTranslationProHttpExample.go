@@ -58,6 +58,12 @@ var apiConfig = ApiConfig{
 	 * 如设置为false，且您未购买该API，将会收到"Sorry, your calling resources have been exhausted........."的错误提示
 	 */
 	UseTrialResource: false / true,
+
+    /**
+    * FAQ for API response
+	* FAQ:https://app.gitbook.com/o/pBUcuyAewroKoYr3CeVm/s/cXGtrD26wbOKouIXD83g/getting-started/faq
+    * FAQ(中文/Simple Chinese):https://aidge.yuque.com/org-wiki-aidge-bzb63a/brbggt/ny2tgih89utg1aha
+    */
 }
 
 func invokeAPI(apiName string, data interface{}, urlParam string, isGet bool) (string, error) {

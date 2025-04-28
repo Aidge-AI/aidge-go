@@ -58,6 +58,12 @@ var apiConfig = ApiConfig{
 	 * 如设置为false，且您未购买该API，将会收到"Sorry, your calling resources have been exhausted........."的错误提示
 	 */
 	UseTrialResource: false / true,
+
+	/**
+    * FAQ for API response
+	* FAQ:https://app.gitbook.com/o/pBUcuyAewroKoYr3CeVm/s/cXGtrD26wbOKouIXD83g/getting-started/faq
+    * FAQ(中文/Simple Chinese):https://aidge.yuque.com/org-wiki-aidge-bzb63a/brbggt/ny2tgih89utg1aha
+    */
 }
 
 // Function to invoke the API
@@ -106,20 +112,16 @@ func invokeAPI(apiName string, data []byte) (string, error) {
 
 func main() {
 	// Call api
-	apiName := "/ai/image/translation_mllm/batch"
+	apiName := "/ai/hand-foot/repair"
 
 	// Constructor request Parameters
 	paramJson := []map[string]interface{}{
 		{
-            "imageUrl": "https://img.alicdn.com/imgextra/i1/1955749012/O1CN016P3Jas2GRY7vaevsK_!!1955749012.jpg",
-            "sourceLanguage": "zh",
-            "targetLanguage": "en"
-        },
-        {
-            "imageUrl": "https://img.alicdn.com/imgextra/i1/1955749012/O1CN016P3Jas2GRY7vaevsK_!!1955749012.jpg",
-            "sourceLanguage": "zh",
-            "targetLanguage": "ko"
-        }
+			"area":         "hand",
+			"imageUrl":     "http://aibz-aigc-record.oss-ap-southeast-1.aliyuncs.com/skin_repaint_result%2Faa0d0023ea46464ebff4cda31ffcc312_20250124144712.png?OSSAccessKeyId=LTAI5tAGoBnm5eYsnZ5E1zMr&Expires=2737701232&Signature=kFfey2VgD%2FCxUUqHgdMJwdQyeFQ%3D",
+			"imgNum":       "1",
+			"requestBizId": "",
+		},
 	}
 
 	param := map[string]interface{}{
@@ -150,7 +152,7 @@ func main() {
 	taskID := submitResultJson["data"].(map[string]interface{})["result"].(map[string]interface{})["taskId"].(string)
 
 	// Query task status
-	queryApiName := "/ai/image/translation_mllm/results"
+	queryApiName := "/ai/hand-foot/repair-results"
 	queryRequest, err := json.Marshal(map[string]string{"taskId": taskID})
 	if err != nil {
 		fmt.Println("Error marshaling JSON:", err)
