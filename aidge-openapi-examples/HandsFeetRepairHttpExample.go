@@ -118,7 +118,7 @@ func main() {
 	paramJson := []map[string]interface{}{
 		{
 			"area":         "hand",
-			"imageUrl":     "http://aibz-aigc-record.oss-ap-southeast-1.aliyuncs.com/skin_repaint_result%2Faa0d0023ea46464ebff4cda31ffcc312_20250124144712.png?OSSAccessKeyId=LTAI5tAGoBnm5eYsnZ5E1zMr&Expires=2737701232&Signature=kFfey2VgD%2FCxUUqHgdMJwdQyeFQ%3D",
+			"imageUrl":     "your imageUrl",
 			"imgNum":       "1",
 			"requestBizId": "",
 		},
